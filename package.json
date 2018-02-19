@@ -17,8 +17,14 @@
   },
   "homepage": "https://github.com/Pie-Jie/bw-alpr#readme",
   "dependencies": {
+    "body-parser": "^1.18.2",
     "express": "^4.16.2",
+    "multer": "^1.3.0",
+    "openalpr_api": "^2.0.1",
+    "redis": "^2.8.0",
     "socket.io": "^2.0.4",
-    "socket.io-client": "^2.0.4"
+    "socket.io-client": "^2.0.4",
+    "socket.io-redis": "^5.2.0",
+    "socketio-file-upload": "^0.6.0"
   }
 }
