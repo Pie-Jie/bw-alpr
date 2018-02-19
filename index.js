@@ -8,7 +8,7 @@ var app = express();
 const PORT = process.env.PORT || 3000;
 var server = http.createServer(app).listen(PORT);
 const io = require('socket.io')(server);
-var imageUrl;
+var imageUrl = "https://assets.gocar.be/picserver1/userdata/1/21203/VigQxhimI/o-nummerplaat-porsche%281%29.jpg";
 var settings = "";
 var state = {};
 
@@ -26,7 +26,7 @@ io.on('connection', function (socket) {
     fs.readdir('./uploads', function (err, files) {
 
         var api = new OpenalprApi.DefaultApi()
-        var secretKey = "sk_fa23a171b24ee5578f0eab95";
+        var secretKey = "sk_DEMODEMODEMODEMODEMODEMO";
         var country = "eu";
         var opts = {
             'recognizeVehicle': 0,
@@ -35,13 +35,13 @@ io.on('connection', function (socket) {
             'topn': 1,
             'prewarp': ""
         };
-        files.forEach(function (fileName) {
+        //files.forEach(function (fileName) {
 
-            var file = path.join(__dirname, '/uploads', fileName);
-            var stats = fs.statSync(file);
-            if (stats.isFile() && fileName !== ".DS_Store") {
+            //var file = path.join(__dirname, '/uploads', fileName);
+            //var stats = fs.statSync(file);
+           // if (stats.isFile() && fileName !== ".DS_Store") {
                 //console.log(typeof stats);
-                fs.readFile(file, 'UTF-8', function (err, contents) {
+                //fs.readFile(file, 'UTF-8', function (err, contents) {
                     
                     //imageUrl = new Buffer(file).toString('base64');
                     //console.log(imageUrl);
@@ -52,11 +52,11 @@ io.on('connection', function (socket) {
                             console.dir(data);
                         }
                     };
-                    api.recognizeBytes(contents, secretKey, country, opts, callback);
+                    api.recognizeUrl(imageUrl, secretKey, country, opts, callback);
 
-                });
-            }
-        });
+                //});
+            //}
+        //});
 
     });
 
