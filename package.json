@@ -20,7 +20,12 @@
     "body-parser": "^1.18.2",
     "express": "^4.16.2",
     "ioredis": "^3.2.2",
+    "laravel-echo": "^1.3.5",
+    "nest-api": "0.0.8",
+    "node-nest-cams": "0.0.2",
     "openalpr_api": "^2.0.1",
+    "pusher": "^1.5.1",
+    "pusher-js": "^4.2.2",
     "socket.io": "^2.0.4",
     "socket.io-client": "^2.0.4"
   }
