@@ -8,21 +8,29 @@ var app = express();
 const PORT = process.env.PORT || 3000;
 var server = http.createServer(app).listen(PORT);
 const io = require('socket.io')(server);
+var Redis = require('ioredis');
 var imageUrl = "https://assets.gocar.be/picserver1/userdata/1/21203/VigQxhimI/o-nummerplaat-porsche%281%29.jpg";
 var settings = "";
 var state = {};
 
 app.use(express.static('./public'));
 app.use(bodyParser.json());
+/*
+var redis = new Redis();
+redis.subscribe('test-channel');
+redis.on('message', function(channel, message) {
+    console.log(channel, message);
+    message = JSON.parse(message);
+    //io.emit(channel + ':' + message.event, message.data);
+    console.log('getting message');
+});
+*/
 
 io.on('connection', function (socket) {
-    console.log('a user connected');
-    socket.on('disconnect', function () {
-        //console.log('a user disconnected');
-    });
-
-    socket.emit('title', 'Hello_friend');
-
+    socket.emit('title', '> Client connected to server');
+    
+    //socket.emit('hallo', 'dag quinten');
+    
     fs.readdir('./uploads', function (err, files) {
 
         var api = new OpenalprApi.DefaultApi()
