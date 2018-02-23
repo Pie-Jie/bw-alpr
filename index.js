@@ -12,7 +12,7 @@ var Redis = require('ioredis');
 var imageUrl = "https://assets.gocar.be/picserver1/userdata/1/21203/VigQxhimI/o-nummerplaat-porsche%281%29.jpg";
 var settings = "";
 var state = {};
-var Pusher = require('pusher-js');
+var Pusher = require('pusher');
 const nest = require('node-nest-cams');
 
 let nestConfig = {
@@ -38,7 +38,6 @@ var pusher = new Pusher({
     cluster: 'eu',
     encrypted: true
 });
-console.log('pusher connection state = ' + pusher.connection.state);
 
 
 
@@ -47,24 +46,16 @@ app.use(express.static('./public'));
 app.use(bodyParser.json());
 
 
+io.on('message', function (socket) {
+    socket.on('message', function (msg) {
+        console.log('MSG :: ' + msg);
+        socket.broadcast.emit('received', 'Received data!');
+    });
+
+});
 
 io.on('connection', function (socket) {
-pusher.get({ path: '/channels', params: {} }, function(error, request, response) {
-	if (response.statusCode === 200) {
-		var result = JSON.parse(response.body);
-		var channelsInfo = result.channels;
-	}
-});
-    socket.on('client', function (data) {
-        console.log(data);
-    });
-    //console.log(socket);
-    console.log('client connected');
-    var testChannel = pusher.subscribe('test-channel');
 
-    testChannel.bind('test', function (data) {
-        console.log('test: ' + data.message);
-    });
 
     socket.emit('title', '> Client connected to server');
 
